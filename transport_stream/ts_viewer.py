@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication,QWidget,QMainWindow
-from PyQt5.QtWidgets import QMenu,QToolTip,QPushButton,QMessageBox,qApp
+from PyQt5.QtWidgets import QMenu,QToolTip,QPushButton,QMessageBox,QLabel
 from PyQt5.QtWidgets import QDesktopWidget,QAction
 from PyQt5.QtGui import QFont,QIcon
 from PyQt5.QtCore import QCoreApplication
@@ -25,6 +25,13 @@ class MainWindow(QMainWindow):
 
         self.init_button()
         self.init_menu()
+
+        label1 = QLabel('Parse Type',self)
+        label1.move(100,100)
+
+
+
+
         #self.center_display()
         self.show()
     #@pyqtSlot()
