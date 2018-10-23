@@ -1,73 +1,65 @@
 import sys
-from ts_file import TSFile,PTS_SIZE
-from PyQt5.QtWidgets import QApplication,QWidget,QToolTip,QPushButton,QMessageBox
-from PyQt5.QtWidgets import QDesktopWidget
-from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QApplication,QWidget,QToolTip,QPushButton,QMessageBox,qApp
+from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QDesktopWidget,QMainWindow,QAction
+from PyQt5.QtGui import QFont,QIcon
 from PyQt5.QtCore import QCoreApplication
 
-'''
-class Application(tk.Frame):
-    def create_widgets(self):
-        ts_file = TSFile("mepg2.ts")
-        file_data = list()
-        for i in range(PTS_SIZE):
-            data = ts_file.read_file(i,1)
-            file_data.append(hex(data))
 
-        font = tkFont.Font(size=20)
-        self.hello_lable = tk.Label(self, text=file_data,width = 128,wraplength=512*2,font=font)
-        self.hello_lable.pack()
-        self.quit_button = tk.Button(self,text='Quit', command=self.quit)
-        self.quit_button.pack()
-
-'''
-class Window(QWidget):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.title = 'Transport Stream Viewer'
+        self.left = 40
+        self.top = 40
+        self.width = 640
+        self.height = 480
         self.init_UI()
 
     def init_UI(self):
 
-        QToolTip.setFont(QFont('SansSerif',10))
-        self.setToolTip('This is a <b>QWidget</b> widget')
 
-        btn = QPushButton('Button', self)
-        btn.setToolTip('This is a button widget')
-        btn.resize(btn.sizeHint())
-        btn.move(50,50)
+        #self.init_menu()
+        #self.statusBar().showMessage('Ready')
 
-        quit_btn = QPushButton('Quit', self)
-        quit_btn.clicked.connect(QCoreApplication.instance().quit)
-        quit_btn.resize(quit_btn.sizeHint())
-        quit_btn.move(50, 100)
+        self.setGeometry(self.left,self.top,self.width,self.height)
+        self.setWindowTitle(self.title)
 
-        self.setGeometry(300,300,300,220)
-        self.setWindowTitle('TS Viewer')
-        #get the window
+
+        #self.center_display()
+        self.show()
+    def init_menu(self):
+        exit_action = QAction(QIcon('exit.png'),'&Exit',self)
+        exit_action.setShortcut('Ctrl+Q')
+        exit_action.setStatusTip('Exit application')
+        exit_action.triggered.connect(qApp.quit)
+
+        #self.statusBar()
+
+        menu_bar = self.menuBar()
+        file_menu = menu_bar.addMenu('&File')
+
+        import_menu = QMenu('Import',self)
+        import_action = QAction('Import file', self)
+        import_menu.addAction(import_action)
+
+        file_menu.addMenu(import_menu)
+
+        file_menu.addAction(exit_action)
+
+    def center_display(self):
+        # get the window
         widget = self.frameGeometry()
-        #get the center_point of the screen
+        # get the center_point of the screen
         center_point = QDesktopWidget().availableGeometry().center()
-        #move the window to the center point
+        # move the window to the center point
         widget.moveCenter(center_point)
         self.move(widget.topLeft())
-
-        self.show()
-
-    def closeEvent(self,event):
-        reply = QMessageBox.question(self,'Message',
-                                     "Are you sure to quit?",
-                                     QMessageBox.Yes|QMessageBox.No,
-                                     QMessageBox.No)
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
-
 
 
 def main():
     app = QApplication(sys.argv)
-    win = Window()
+    main_window = MainWindow()
     sys.exit(app.exec_())
 
 
