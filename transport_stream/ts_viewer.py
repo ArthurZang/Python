@@ -23,11 +23,21 @@ class MainWindow(QMainWindow):
 
         self.statusBar().showMessage('Ready')
 
+        self.init_button()
+        self.init_menu()
+        #self.center_display()
+        self.show()
+    #@pyqtSlot()
+    def init_button(self):
         button = QPushButton('button',self)
         button.setToolTip("example button")
         button.move(100,70)
         button.clicked.connect(self.on_click)
 
+    def on_click(self):
+        print('button click')
+
+    def init_messagebox(self):
         button_reply = QMessageBox.question(self, 'message', 'Do you happy',
                                             QMessageBox.Yes | QMessageBox.No,
                                             QMessageBox.Yes)
@@ -35,30 +45,27 @@ class MainWindow(QMainWindow):
             print('Yes')
         else:
             print('No')
-        #self.center_display()
-        self.show()
-    #@pyqtSlot()
-    def on_click(self):
-        print('button click')
 
     def init_menu(self):
-        exit_action = QAction(QIcon('exit.png'),'&Exit',self)
-        exit_action.setShortcut('Ctrl+Q')
-        exit_action.setStatusTip('Exit application')
-        exit_action.triggered.connect(qApp.quit)
+
 
         #self.statusBar()
 
-        menu_bar = self.menuBar()
-        file_menu = menu_bar.addMenu('&File')
+        main_menu = self.menuBar()
+        file_menu = main_menu.addMenu('File')
+        edit_menu = main_menu.addMenu('Edit')
+        vide_menu = main_menu.addMenu('View')
+        help_menu = main_menu.addMenu('Help')
 
-        import_menu = QMenu('Import',self)
         import_action = QAction('Import file', self)
-        import_menu.addAction(import_action)
 
-        file_menu.addMenu(import_menu)
+        exit_action = QAction(QIcon('exit.png'),'&Exit',self)
+        exit_action.setShortcut('Ctrl+Q')
+        exit_action.setStatusTip('Exit application')
+        exit_action.triggered.connect(self.close)
 
         file_menu.addAction(exit_action)
+        file_menu.addAction(import_action)
 
     def center_display(self):
         # get the window
