@@ -1,7 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication,QWidget,QMainWindow
 from PyQt5.QtWidgets import QMenu,QToolTip,QPushButton,QMessageBox,QLabel
-from PyQt5.QtWidgets import QDesktopWidget,QAction
+from PyQt5.QtWidgets import QLineEdit,QAction
+from PyQt5.QtWidgets import QDesktopWidget
 from PyQt5.QtGui import QFont,QIcon
 from PyQt5.QtCore import QCoreApplication
 
@@ -27,22 +28,27 @@ class MainWindow(QMainWindow):
         self.init_menu()
 
         label1 = QLabel('Parse Type',self)
-        label1.move(100,100)
+        label1.move(100,200)
 
-
+        self.textbox = QLineEdit(self)
+        self.textbox.move(100,150)
+        self.textbox.resize(280,40)
 
 
         #self.center_display()
         self.show()
     #@pyqtSlot()
     def init_button(self):
-        button = QPushButton('button',self)
+        button = QPushButton('show text',self)
         button.setToolTip("example button")
         button.move(100,70)
         button.clicked.connect(self.on_click)
 
     def on_click(self):
-        print('button click')
+        textbox_value = self.textbox.text()
+        QMessageBox.question(self,'Message',"You typed:" + textbox_value,
+                             QMessageBox.Ok,QMessageBox.Ok)
+        self.textbox.setText("")
 
     def init_messagebox(self):
         button_reply = QMessageBox.question(self, 'message', 'Do you happy',
