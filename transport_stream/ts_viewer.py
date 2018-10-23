@@ -27,6 +27,14 @@ class MainWindow(QMainWindow):
         button.setToolTip("example button")
         button.move(100,70)
         button.clicked.connect(self.on_click)
+
+        button_reply = QMessageBox.question(self, 'message', 'Do you happy',
+                                            QMessageBox.Yes | QMessageBox.No,
+                                            QMessageBox.Yes)
+        if button_reply == QMessageBox.Yes:
+            print('Yes')
+        else:
+            print('No')
         #self.center_display()
         self.show()
     #@pyqtSlot()
