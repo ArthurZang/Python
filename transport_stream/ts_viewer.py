@@ -1,7 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication,QWidget,QToolTip,QPushButton,QMessageBox,qApp
-from PyQt5.QtWidgets import QMenu
-from PyQt5.QtWidgets import QDesktopWidget,QMainWindow,QAction
+from PyQt5.QtWidgets import QApplication,QWidget,QMainWindow
+from PyQt5.QtWidgets import QMenu,QToolTip,QPushButton,QMessageBox,qApp
+from PyQt5.QtWidgets import QDesktopWidget,QAction
 from PyQt5.QtGui import QFont,QIcon
 from PyQt5.QtCore import QCoreApplication
 
@@ -20,12 +20,12 @@ class MainWindow(QMainWindow):
 
 
         #self.init_menu()
-        #self.statusBar().showMessage('Ready')
+
 
         self.setGeometry(self.left,self.top,self.width,self.height)
         self.setWindowTitle(self.title)
 
-
+        self.statusBar().showMessage('Ready')
         #self.center_display()
         self.show()
     def init_menu(self):
