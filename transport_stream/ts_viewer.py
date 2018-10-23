@@ -18,16 +18,21 @@ class MainWindow(QMainWindow):
 
     def init_UI(self):
 
-
-        #self.init_menu()
-
-
         self.setGeometry(self.left,self.top,self.width,self.height)
         self.setWindowTitle(self.title)
 
         self.statusBar().showMessage('Ready')
+
+        button = QPushButton('button',self)
+        button.setToolTip("example button")
+        button.move(100,70)
+        button.clicked.connect(self.on_click)
         #self.center_display()
         self.show()
+    #@pyqtSlot()
+    def on_click(self):
+        print('button click')
+
     def init_menu(self):
         exit_action = QAction(QIcon('exit.png'),'&Exit',self)
         exit_action.setShortcut('Ctrl+Q')
